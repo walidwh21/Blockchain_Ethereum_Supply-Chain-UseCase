@@ -1,0 +1,56 @@
+:root{
+  --ink:#16222b; --muted:#5d6b76; --paper:#f4f6f7; --card:#ffffff; --line:#d9e0e4;
+  --accent:#0d5c63; --accent-ink:#ffffff; --stamp:#f0b429; --bad:#b3372f;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --ink:#e8eef1; --muted:#98a7b1; --paper:#10171c; --card:#18222a; --line:#2a3944;
+    --accent:#4fb3bb; --accent-ink:#062428; --bad:#ff8a80; color-scheme: dark; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,.brand{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;letter-spacing:-.01em}
+h1{font-size:2rem;margin:0 0 .25rem} h2{font-size:1.15rem;margin:2rem 0 .75rem}
+.bar{display:flex;align-items:center;gap:1rem;padding:.75rem 1.25rem;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:5;flex-wrap:wrap}
+.brand{font-weight:700;font-size:1.25rem;display:flex;align-items:center;gap:.5rem}
+.mark{width:18px;height:18px;border:3px solid var(--accent);border-right-color:var(--stamp);border-bottom-color:var(--stamp);border-radius:50%}
+.tabs{display:flex;gap:.25rem;margin-inline:auto}
+.tabs button{background:none;border:0;color:var(--muted);padding:.5rem .9rem;border-radius:6px;font:inherit;cursor:pointer}
+.tabs button[aria-selected=true]{color:var(--ink);box-shadow:inset 0 -3px 0 var(--stamp)}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:6px;padding:.55rem 1rem;font:500 .95rem "IBM Plex Sans",sans-serif;cursor:pointer}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:.3rem .7rem;font-size:.85rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
+main{max-width:980px;margin:0 auto;padding:2rem 1.25rem 4rem}
+.head p{color:var(--muted);max-width:60ch;margin:.25rem 0 1.5rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+.item,.order,.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1rem}
+.item h3{margin:0 0 .25rem;font-size:1.05rem}
+.meta{color:var(--muted);font-size:.9rem}
+.price{font:700 1.4rem "Bricolage Grotesque",sans-serif;margin:.5rem 0}
+.stack{display:grid;gap:.75rem}
+.row{display:flex;gap:.75rem;align-items:flex-end;flex-wrap:wrap}.row.end{justify-content:flex-end;margin-top:1rem}
+.field{display:grid;gap:.25rem;font-size:.9rem;color:var(--muted)}.field.grow{flex:1;min-width:180px}
+input{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:.5rem .6rem;min-width:0}
+.hint{color:var(--muted);font-size:.85rem}
+.order header{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.order .no{font:700 1.1rem "Bricolage Grotesque",sans-serif}
+.steps{display:flex;margin:1rem 0 .5rem;list-style:none;padding:0}
+.steps li{flex:1;text-align:center;font-size:.85rem;color:var(--muted);position:relative;padding-top:1.4rem}
+.steps li::before{content:"";position:absolute;top:0;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--line);z-index:1}
+.steps li::after{content:"";position:absolute;top:6px;left:-50%;width:100%;height:2px;background:var(--line)}
+.steps li:first-child::after{display:none}
+.steps li.done{color:var(--ink)}.steps li.done::before,.steps li.done::after{background:var(--accent)}
+.steps li.now::before{background:var(--stamp);box-shadow:0 0 0 4px color-mix(in srgb,var(--stamp) 30%,transparent)}
+.cancelled{color:var(--bad);font-weight:500}
+.actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
+.empty{color:var(--muted);padding:.5rem 0}
+dialog{border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);padding:1.25rem;width:min(92vw,420px)}
+dialog::backdrop{background:rgba(0,0,0,.45)} dialog .field{margin-top:.75rem} dialog input{width:100%}
+#toast{position:fixed;left:50%;bottom:1.25rem;transform:translate(-50%,2rem);background:var(--ink);color:var(--paper);padding:.6rem 1rem;border-radius:6px;opacity:0;pointer-events:none;transition:.2s;max-width:90vw}
+#toast.show{opacity:1;transform:translate(-50%,0)} #toast.err{background:var(--bad);color:#fff}
+@media (max-width:640px){.tabs{order:3;width:100%;justify-content:center}}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+#lookup{margin-bottom:1rem}
+.panel>h2:first-child,dialog h2{margin-top:0}

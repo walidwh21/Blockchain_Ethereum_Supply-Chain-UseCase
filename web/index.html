@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waybill · order tracking on-chain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="bar">
+  <div class="brand"><span class="mark" aria-hidden="true"></span>Waybill</div>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" aria-selected="true" data-tab="catalog">Catalog</button>
+    <button role="tab" aria-selected="false" data-tab="orders">My orders</button>
+    <button role="tab" aria-selected="false" data-tab="merchant">Merchant</button>
+  </nav>
+  <button id="connect" class="btn">Connect wallet</button>
+</header>
+
+<main>
+  <section id="catalog" class="view" role="tabpanel">
+    <div class="head"><h1>Catalog</h1><p>Items listed by merchants. Ordering reserves stock; payment is arranged directly with the merchant.</p></div>
+    <div id="items" class="grid"></div>
+  </section>
+
+  <section id="orders" class="view" role="tabpanel" hidden>
+    <div class="head"><h1>Track an order</h1><p>Look up any order by its number, or review the orders placed from your wallet.</p></div>
+    <form id="lookup" class="row">
+      <label class="field"><span>Order number</span><input id="lookupId" inputmode="numeric" pattern="[0-9]*" required></label>
+      <button class="btn">Find order</button>
+    </form>
+    <div id="lookupResult" class="stack"></div>
+    <h2>Placed from this wallet</h2>
+    <div id="myOrders" class="stack"></div>
+  </section>
+
+  <section id="merchant" class="view" role="tabpanel" hidden>
+    <div class="head"><h1>Merchant</h1><p>Register once, list items, and move orders from placed to delivered.</p></div>
+    <div id="register" class="panel" hidden>
+      <h2>Register as a merchant</h2>
+      <form id="registerForm" class="row">
+        <label class="field"><span>Display name</span><input id="regName" maxlength="60" required></label>
+        <button class="btn">Register</button>
+      </form>
+    </div>
+    <div id="dash" hidden>
+      <div class="panel">
+        <h2>Add an item</h2>
+        <form id="addForm" class="row">
+          <label class="field grow"><span>Name</span><input id="addName" maxlength="80" required></label>
+          <label class="field"><span>Price</span><input id="addPrice" type="number" min="0" step="1" required></label>
+          <label class="field"><span>Stock</span><input id="addStock" type="number" min="0" step="1" required></label>
+          <button class="btn">Add item</button>
+        </form>
+      </div>
+      <h2>Your items</h2>
+      <div id="myItems" class="stack"></div>
+      <h2>Incoming orders</h2>
+      <div id="incoming" class="stack"></div>
+    </div>
+  </section>
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="orderDialog">
+  <form method="dialog" id="orderForm">
+    <h2 id="dlgTitle">Place order</h2>
+    <label class="field"><span>Quantity</span><input id="ordQty" type="number" min="1" step="1" value="1" required></label>
+    <label class="field"><span>Fulfilment reference</span><input id="ordRef" maxlength="120" placeholder="A code your merchant gave you" required></label>
+    <p class="hint">This text is public on-chain. Don't enter your address or phone number.</p>
+    <div class="row end"><button value="cancel" class="btn ghost" formnovalidate>Cancel</button><button value="ok" class="btn">Place order</button></div>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
